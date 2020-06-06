@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="16dp"
@@ -16,21 +16,20 @@
         android:layout_alignParentLeft="true" />
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText"
-        android:layout_marginBottom="20dp">
-        <TextView
-            android:id="@+id/okTextView"
+        android:layout_below="@id/edit_text" >
+        <Button
+            android:id="@+id/ok_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Ok"
             android:gravity="center" />
 
-        <TextView
-            android:id="@+id/cancelTextView"
+        <Button
+            android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
