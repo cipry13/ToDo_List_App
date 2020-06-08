@@ -14,8 +14,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Item> items = new ArrayList<Item>();
 
+    ItemAdapter adapter;
+    ArrayList<Item> items = new ArrayList<Item>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         ListView listView = findViewById(R.id.item_list);
+
         items.add(new Item("Ana"));
         items.add(new Item("are"));
         items.add(new Item("mere"));
 
-        ItemAdapter adapter = new ItemAdapter(this, items, R.layout.list_item);
-
+        adapter = new ItemAdapter(this, R.layout.list_item, items);
 
         listView.setAdapter(adapter);
 
-        Log.v("Main Activityyyyyyyy: ",items.get(0).getText());
 
         Button addButton = findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MyDialogFragment mdf = new MyDialogFragment();
                 mdf.show(getSupportFragmentManager(), "My Dialog Fragment");
-//                items.add(new Item(mdf.getUserInput()));
-
             }
         });
 
