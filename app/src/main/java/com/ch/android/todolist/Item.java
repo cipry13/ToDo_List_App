@@ -2,7 +2,7 @@ package com.ch.android.todolist;
 
 public class Item {
     String name;
-    boolean isSelected;
+    boolean isSelected = false;
 
     public Item(){
 
@@ -24,7 +24,7 @@ public class Item {
         this.isSelected = isSelected;
     }
 
-    public boolean isSelected(){
+    public boolean getIsSelected(){
         return isSelected;
     }
 

@@ -35,6 +35,7 @@ public class MyDialogFragment extends DialogFragment {
                 else {
                     Toast.makeText(getActivity(), "Your text: " + nameEditText.getText().toString(), Toast.LENGTH_SHORT).show();
                     ((MainActivity)getActivity()).addItem(nameEditText.getText().toString());
+
                     getDialog().dismiss();
                 }
 

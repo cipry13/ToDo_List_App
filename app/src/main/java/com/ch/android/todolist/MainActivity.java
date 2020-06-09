@@ -27,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.item_list);
 
-        items.add(new Item("Ana"));
-        items.add(new Item("are"));
-        items.add(new Item("mere"));
+
+        for(int i = 0; i < 5; i++) {
+            items.add(new Item("Task " + i));
+        }
 
         adapter = new ItemAdapter(this, R.layout.list_item, items);
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MyDialogFragment mdf = new MyDialogFragment();
                 mdf.show(getSupportFragmentManager(), "My Dialog Fragment");
+                adapter.notifyDataSetChanged();
             }
         });
 
