@@ -52,7 +52,12 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         Item item = items.get(position);
         holder.cb.setChecked(item.getIsSelected());
         holder.tv.setText(item.getItemName());
-
+        if(holder.cb.isChecked()) {
+            holder.tv.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else {
+            holder.tv.setPaintFlags(holder.tv.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+        }
 
 
         holder.cb.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +72,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                 }
             }
         });
+
 /*
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -85,6 +91,8 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         });
 
 */
+
+
         holder.editIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +140,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 items.remove(position);
-                                holder.tv.setPaintFlags(holder.tv.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+//                                holder.tv.setPaintFlags(holder.tv.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 //                                Log.i("ItemAdapter: ",items.get(position).getItemName() + " + position:" + position + " + isChecked: " + items.get(position).getIsSelected());
                                 notifyDataSetChanged();
                                 dialog.cancel();

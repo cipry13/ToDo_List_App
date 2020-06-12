@@ -1,17 +1,17 @@
 package com.ch.android.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,17 +29,19 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.item_list);
 
 
-        for(int i = 0; i < 5; i++) {
+ /*       for(int i = 0; i < 5; i++) {
             items.add(new Item("Task " + i));
-        }
+        }*/
+
+        loadData();
+
 
         adapter = new ItemAdapter(this, R.layout.list_item, items);
-
         listView.setAdapter(adapter);
 
 
-        ImageButton addButton = findViewById(R.id.add_button);
 
+        FloatingActionButton addButton = findViewById(R.id.fab);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,4 +57,28 @@ public class MainActivity extends AppCompatActivity {
         items.add(new Item(x));
     }
 
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(items);
+        editor.putString("task list", json);
+        editor.apply();
+    }
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("task list", null);
+        Type type = new TypeToken<ArrayList<Item>>() {}.getType();
+        items = gson.fromJson(json, type);
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
+    }
 }

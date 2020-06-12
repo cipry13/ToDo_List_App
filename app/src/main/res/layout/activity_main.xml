@@ -11,18 +11,19 @@
         android:id="@+id/item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
         >
     </ListView>
 
-    <ImageButton
-        android:id="@+id/add_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/add_circle"
-        android:background="?attr/selectableItemBackground"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp">
-    </ImageButton>
+        android:layout_margin="16dp"
+        android:backgroundTint="#37A143"
+
+
+        />
 </RelativeLayout>
