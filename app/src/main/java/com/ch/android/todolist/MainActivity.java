@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -13,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,5 +85,61 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         saveData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.more_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.select_all:
+                Toast.makeText(this, "All tasks selected", Toast.LENGTH_SHORT).show();
+                selectAll();
+                return true;
+            case R.id.deselect_all:
+                Toast.makeText(this, "All tasks deselected", Toast.LENGTH_SHORT).show();
+                deselectAll();
+                return true;
+            case R.id.delete_all_selected:
+                Toast.makeText(this, "Selected tasks deleted", Toast.LENGTH_SHORT).show();
+                deleteAllSelected();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void selectAll(){
+        for(Item i : items){
+            i.setIsSelected(true);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void deselectAll(){
+        for(Item i : items){
+            i.setIsSelected(false);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void deleteAllSelected(){
+       for(Iterator<Item> itemIterator = items.iterator(); itemIterator.hasNext();){
+           Item item = itemIterator.next();
+           if(item.getIsSelected()){
+               itemIterator.remove();
+           }
+       }
+       adapter.notifyDataSetChanged();
     }
 }
